@@ -10,8 +10,8 @@ Chat web which combines GPT-4 Mini and  Gemini Flash for awesome and versatile c
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/your-username/chat-ai-interface.git
-cd chat-ai-interface
+git clone https://github.com/your-username/Python_Chat.git
+cd Python_Chat
 ```
 
 ### 2️⃣ Create a virtual environment (optional but recommended)
