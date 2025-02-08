@@ -1,6 +1,8 @@
 # 📌 Chat AI Interface
 
-A modern chat interface that integrates **OpenAI GPT-3.5 Turbo** and **Google Gemini** into a single web application, enabling intelligent and interactive conversations with multiple AI models.
+Chat web que combina GPT-4 Mini e Gemini Flash para conversas inteligentes com IA.
+
+Desenvolvido por Lucas Cabral
 
 ---
 

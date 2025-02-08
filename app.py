@@ -76,9 +76,9 @@ def chat():
         if model == 'gpt-4o-mini':
             try:
                 response = client.chat.completions.create(
-                    model="gpt-3.5-turbo",
+                    model="gpt-4o-mini-2024-07-18",
                     messages=messages,
-                    timeout=30  # timeout em segundos
+                    timeout=30
                 )
                 return jsonify({'response': response.choices[0].message.content})
             except Exception as e:
