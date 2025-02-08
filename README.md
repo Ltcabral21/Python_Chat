@@ -86,9 +86,5 @@ chat-ai-interface/
 
 ---
 
-## 📜 License
-
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
-
-📌 Developed with ❤️ by [Your Name](https://github.com/your-username)
+📌 Developed with ❤️ by Lucas Cabral
 
