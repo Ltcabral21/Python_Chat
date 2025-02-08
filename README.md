@@ -2,7 +2,7 @@
 
 Chat web which combines GPT-4 Mini and  Gemini Flash for awesome and versatile conversations!
 
-Desenvolvido por Lucas Cabral
+
 
 ---
 
