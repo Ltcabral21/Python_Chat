@@ -6,33 +6,36 @@ Uma interface de chat moderna que integra **OpenAI GPT-3.5 Turbo** e **Google Ge
 
 ## 🚀 Configuração Rápida
 
-### 1️⃣ Clone o repositório e instale as dependências
+### 1️⃣ Clone o repositório
 ```bash
-# Clone o repositório
 git clone https://github.com/seu-usuario/chat-ai-interface.git
 cd chat-ai-interface
+```
 
-# Crie e ative um ambiente virtual (opcional, mas recomendado)
+### 2️⃣ Crie um ambiente virtual (opcional, mas recomendado)
+```bash
 python -m venv venv
 source venv/bin/activate  # No Windows: venv\Scripts\activate
+```
 
-# Instale as dependências
+### 3️⃣ Instale as dependências
+```bash
 pip install -r requirements.txt
 ```
 
-### 2️⃣ Configure as variáveis de ambiente
+### 4️⃣ Configure as variáveis de ambiente
 Crie um arquivo `.env` na raiz do projeto e adicione suas chaves de API:
 ```env
 OPENAI_API_KEY=sua-chave-aqui
 GEMINI_API_KEY=sua-chave-aqui
 ```
 
-### 3️⃣ Execute o servidor Flask
+### 5️⃣ Execute o servidor Flask
 ```bash
 python app.py
 ```
 
-### 4️⃣ Acesse no navegador
+### 6️⃣ Acesse no navegador
 Abra [`http://localhost:5000`](http://localhost:5000) para usar a interface de chat.
 
 ---
