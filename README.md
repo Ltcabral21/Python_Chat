@@ -1,46 +1,46 @@
 # 📌 Chat AI Interface
 
-Uma interface de chat moderna que integra **OpenAI GPT-3.5 Turbo** e **Google Gemini** em uma única aplicação web, permitindo conversas inteligentes e interativas com múltiplos modelos de IA.
+A modern chat interface that integrates **OpenAI GPT-3.5 Turbo** and **Google Gemini** into a single web application, enabling intelligent and interactive conversations with multiple AI models.
 
 ---
 
-## 🚀 Configuração Rápida
+## 🚀 Quick Setup
 
-### 1️⃣ Clone o repositório
+### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/seu-usuario/chat-ai-interface.git
+git clone https://github.com/your-username/chat-ai-interface.git
 cd chat-ai-interface
 ```
 
-### 2️⃣ Crie um ambiente virtual (opcional, mas recomendado)
+### 2️⃣ Create a virtual environment (optional but recommended)
 ```bash
 python -m venv venv
-source venv/bin/activate  # No Windows: venv\Scripts\activate
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
-### 3️⃣ Instale as dependências
+### 3️⃣ Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4️⃣ Configure as variáveis de ambiente
-Crie um arquivo `.env` na raiz do projeto e adicione suas chaves de API:
+### 4️⃣ Configure environment variables
+Create a `.env` file in the project root and add your API keys:
 ```env
-OPENAI_API_KEY=sua-chave-aqui
-GEMINI_API_KEY=sua-chave-aqui
+OPENAI_API_KEY=your-key-here
+GEMINI_API_KEY=your-key-here
 ```
 
-### 5️⃣ Execute o servidor Flask
+### 5️⃣ Run the Flask server
 ```bash
 python app.py
 ```
 
-### 6️⃣ Acesse no navegador
-Abra [`http://localhost:5000`](http://localhost:5000) para usar a interface de chat.
+### 6️⃣ Access in your browser
+Open [`http://localhost:5000`](http://localhost:5000) to use the chat interface.
 
 ---
 
-## 🛠 Tecnologias Utilizadas
+## 🛠 Technologies Used
 
 - **Frontend:** HTML, JavaScript (vanilla), Tailwind CSS
 - **Backend:** Python (Flask)
@@ -48,47 +48,47 @@ Abra [`http://localhost:5000`](http://localhost:5000) para usar a interface de c
 
 ---
 
-## ✨ Funcionalidades
+## ✨ Features
 
-✅ Interface de chat moderna e responsiva<br>
-✅ Suporte a múltiplos modelos de IA (GPT-3.5 Turbo e Gemini)<br>
-✅ Alternância dinâmica entre modelos durante a conversa<br>
-✅ Histórico de mensagens persistente no navegador<br>
-✅ Tratamento de erros robusto para falhas de API<br>
-✅ Código limpo e bem documentado
+✅ Modern and responsive chat interface<br>
+✅ Support for multiple AI models (GPT-3.5 Turbo and Gemini)<br>
+✅ Dynamic model switching during conversations<br>
+✅ Persistent message history in the browser<br>
+✅ Robust error handling for API failures<br>
+✅ Clean and well-documented code
 
 ---
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
 chat-ai-interface/
 │── static/
-│   ├── styles.css         # Estilos CSS (Tailwind CSS)
-│   ├── app.js             # Lógica do frontend em JavaScript
+│   ├── styles.css         # CSS styles (Tailwind CSS)
+│   ├── app.js             # Frontend logic in JavaScript
 │── templates/
-│   ├── index.html         # Interface do chat
-│── .env                   # Arquivo de variáveis de ambiente (API Keys)
-│── app.py                 # Servidor Flask (backend)
-│── requirements.txt       # Dependências do projeto
-│── README.md              # Documentação do projeto
+│   ├── index.html         # Chat interface
+│── .env                   # Environment variables file (API Keys)
+│── app.py                 # Flask server (backend)
+│── requirements.txt       # Project dependencies
+│── README.md              # Project documentation
 ```
 
 ---
 
-## ⚡ Como Contribuir
+## ⚡ How to Contribute
 
-1️⃣ Faça um **fork** do projeto<br>
-2️⃣ Crie uma **branch** (`git checkout -b minha-feature`)<br>
-3️⃣ **Commit** suas alterações (`git commit -m 'Adiciona nova funcionalidade'`)<br>
-4️⃣ Faça um **push** para a branch (`git push origin minha-feature`)<br>
-5️⃣ Abra um **Pull Request** 🚀
+1️⃣ **Fork** the project<br>
+2️⃣ Create a **branch** (`git checkout -b my-feature`)<br>
+3️⃣ **Commit** your changes (`git commit -m 'Add new feature'`)<br>
+4️⃣ **Push** to the branch (`git push origin my-feature`)<br>
+5️⃣ Open a **Pull Request** 🚀
 
 ---
 
-## 📜 Licença
+## 📜 License
 
-Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
-📌 Desenvolvido com ❤️ por [Seu Nome](https://github.com/seu-usuario)
+📌 Developed with ❤️ by [Your Name](https://github.com/your-username)
 
