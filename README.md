@@ -1,6 +1,6 @@
 # 📌 Chat AI Interface
 
-Chat web que combina GPT-4 Mini e Gemini Flash para conversas inteligentes com IA.
+Chat web which combines GPT-4 Mini and  Gemini Flash for awesome and versatile conversations!
 
 Desenvolvido por Lucas Cabral
 
