@@ -3,8 +3,8 @@ from flask import Flask, request, jsonify, send_file
 from openai import OpenAI
 import requests
 from dotenv import load_dotenv
-from typing import Optional, Dict, Any
 import traceback
+import google.generativeai as genai
 
 # Load .env file first
 load_dotenv()
@@ -18,6 +18,9 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 # Add validation for API key
 if not OPENAI_API_KEY:
     raise ValueError("No OpenAI API key found. Please set OPENAI_API_KEY in .env file")
+
+if not GEMINI_API_KEY:
+    raise ValueError("No Gemini API key found. Please set GEMINI_API_KEY in .env file")
 
 # Initialize OpenAI client
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -48,10 +51,7 @@ def chat():
             raise APIError("Content-Type must be application/json", 400)
 
         data = request.json
-        if not isinstance(data, dict):
-            raise APIError("Invalid request format", 400)
 
-        # Validar campos obrigatórios
         required_fields = ['model', 'messages']
         for field in required_fields:
             if field not in data:
@@ -60,10 +60,6 @@ def chat():
         model = data.get('model')
         messages = data.get('messages', [])
         user_name = data.get('userName', 'User')
-
-        # Validar chaves API
-        if not OPENAI_API_KEY or not GEMINI_API_KEY:
-            raise APIError('API keys not configured', 500)
 
         # Validar modelo
         if model not in ['gpt-4o-mini', 'gemini-2.0-flash']:
@@ -80,7 +76,7 @@ def chat():
                     messages=messages,
                     timeout=30
                 )
-                return jsonify({'response': response.choices[0].message.content})
+                return jsonify({'response': response.choices[0].message.content.strip()})
             except Exception as e:
                 error_message = str(e)
                 if 'rate limit' in error_message.lower():
@@ -92,62 +88,58 @@ def chat():
 
         elif model == 'gemini-2.0-flash':
             try:
-                formatted_conversation = f"""You are an AI assistant.
-You must remember all context from the conversation and previous messages.
-Here's the conversation history:
-
-"""
-                for msg in messages:
-                    if msg['role'] == "system":
-                        continue
-                    role = user_name if msg['role'] == "user" else "Assistant"
-                    formatted_conversation += f"{role}: {msg['content']}\n"
-
-                formatted_conversation += f"\n Keep the conversation context in mind.\nAssistant: "
+                # Inicializar cliente Gemini
+                genai.configure(api_key=GEMINI_API_KEY)
                 
-                url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
-                headers = {"Content-Type": "application/json"}
-                params = {"key": GEMINI_API_KEY}
-                payload = {
-                    "contents": [{
-                        "parts": [{
-                            "text": formatted_conversation
-                        }]
-                    }]
-                }
+                # Formatar o contexto da conversa
+                conversation_context = [msg['content'] for msg in messages if msg['role'] != "system"]
 
-                response = requests.post(
-                    url, 
-                    headers=headers, 
-                    params=params, 
-                    json=payload,
-                    timeout=30  # timeout em segundos
+                # Preparar o prompt
+                prompt = "\n".join(conversation_context)
+
+                # Gerar resposta usando o modelo Gemini
+                model = genai.GenerativeModel('gemini-pro')
+                response = model.generate_content(
+                    prompt,
+                    generation_config=genai.types.GenerationConfig(
+                        temperature=0.7,
+                        top_p=0.8,
+                        top_k=40,
+                        max_output_tokens=1000,
+                    ),
+                    safety_settings={
+                        "HARM_CATEGORY_HARASSMENT": "BLOCK_MEDIUM_AND_ABOVE",
+                        "HARM_CATEGORY_HATE_SPEECH": "BLOCK_MEDIUM_AND_ABOVE"
+                    }
                 )
 
-                if response.status_code != 200:
-                    error_data = response.json()
-                    error_message = error_data.get('error', {}).get('message', 'Unknown error')
-                    raise APIError(f'Gemini API error: {error_message}', response.status_code)
+                # Verificar se a resposta foi bloqueada
+                if response.prompt_feedback and response.prompt_feedback.block_reason:
+                    raise APIError(f'Response blocked: {response.prompt_feedback.block_reason}', 400)
 
-                response_json = response.json()
-                
-                if 'candidates' in response_json:
-                    return jsonify({'response': response_json['candidates'][0]['content']['parts'][0]['text']})
-                else:
-                    raise APIError('Unexpected Gemini response format', 500)
-                    
-            except requests.Timeout:
-                raise APIError('Gemini API timeout', 504)
-            except requests.RequestException as e:
-                raise APIError(f'Gemini API connection error: {str(e)}', 503)
+                # Imprimir a resposta completa para depuração
+                print(f"Resposta completa do Gemini (raw): {response.__dict__}")
+                print(f"Resposta do Gemini (texto): {response.text}")
+
+                # Limpar resposta
+                response_text = response.text.strip()
+                response_text = response_text.replace("assistant", "").strip()
+
+                return jsonify({'response': response_text})
+
+            except genai.types.BlockedPromptException as e:
+                raise APIError(f'Prompt blocked: {str(e)}', 400)
+            except genai.types.GenerateContentException as e:
+                raise APIError(f'Content generation error: {str(e)}', 500)
             except Exception as e:
+                traceback.print_exc()
                 raise APIError(f'Gemini API error: {str(e)}', 500)
-
-    except APIError:
-        raise
+    
+    except APIError as api_err:
+        return jsonify({'error': api_err.message}), api_err.status_code
     except Exception as e:
-        traceback.print_exc()  # Log the full error
-        raise APIError(f'Server error: {str(e)}', 500)
+        traceback.print_exc()
+        return jsonify({'error': 'Internal server error'}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
