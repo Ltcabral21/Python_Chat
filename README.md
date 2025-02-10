@@ -1,6 +1,6 @@
 # 📌 Chat AI Interface
 
-Chat web which combines GPT-4 Mini and  Gemini Flash for awesome and versatile conversations!
+Chat web which combines GPT-4o-Mini and  Gemini Flash for awesome and versatile conversations!
 
 
 
@@ -22,7 +22,8 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 ### 3️⃣ Install dependencies
 ```bash
-pip install Flask openai requests python-dotenv
+pip install Flask openai requests python-dotenv google-generativeai
+
 
 ```
 
@@ -47,14 +48,14 @@ Open [`http://localhost:5000`](http://localhost:5000) to use the chat interface.
 
 - **Frontend:** HTML, JavaScript (vanilla), Tailwind CSS
 - **Backend:** Python (Flask)
-- **APIs:** OpenAI GPT-3.5, Google Gemini
+- **APIs:** OpenAI GPT-4o-mini, Google Gemini
 
 ---
 
 ## ✨ Features
 
 ✅ Modern and responsive chat interface<br>
-✅ Support for multiple AI models (GPT-3.5 Turbo and Gemini)<br>
+✅ Support for multiple AI models (GPT-4o-mini Turbo and Gemini Flash)<br>
 ✅ Dynamic model switching during conversations<br>
 ✅ Persistent message history in the browser<br>
 ✅ Robust error handling for API failures<br>
